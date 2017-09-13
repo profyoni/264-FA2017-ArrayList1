@@ -3,13 +3,15 @@ package edu.touro.cs.mco264;
 import java.util.*;
 import java.util.function.UnaryOperator;
 
+// for this hw reuse your code unless you have a better solution
 /**
  * ArrayList of Strings
  */
 public class MyArrayList1 implements List<String> {
 
     private String backingArray[];
-    private int insertionPoint, capacity = 10;
+    private int insertionPoint, // next elt will be inserted here
+            capacity = 10; // current length of backing array
 
     public MyArrayList1(){
         backingArray = new String[capacity];
@@ -25,7 +27,7 @@ public class MyArrayList1 implements List<String> {
         return size() == 0;
     }
 
-    @Override
+    @Override// FIXME
     public boolean contains(Object o) {
         return false;
     }
@@ -58,30 +60,37 @@ public class MyArrayList1 implements List<String> {
     }
 
     private void growArray() {
-
+        String [] copy = new String[capacity * 2 + 1];
+        System.arraycopy(backingArray, 0, copy, 0, capacity);
+        backingArray = copy;
+        capacity = capacity * 2 + 1;
     }
 
-    @Override
+    @Override// FIXME
     public boolean remove(Object o) {
         return false;
     }
 
-    @Override
+    @Override // FIXME
     public boolean containsAll(Collection<?> collection) {
         return false;
     }
 
-    @Override
+    @Override // FIXME
     public boolean addAll(Collection<? extends String> collection) {
-        return false;
+        for (String s : collection) {
+
+            this.add(s);
+        }
+        return true;
     }
 
-    @Override
+    @Override // FIXME
     public boolean addAll(int i, Collection<? extends String> collection) {
         return false;
     }
 
-    @Override
+    @Override // FIXME
     public boolean removeAll(Collection<?> collection) {
         return false;
     }
@@ -101,27 +110,35 @@ public class MyArrayList1 implements List<String> {
 
     }
 
-    @Override
+    @Override // FIXME as per Judah and Ben suggestion
     public void clear() {
-
+        for (int i=0;i<backingArray.length;i++){
+            backingArray[i] = null;
+        }
+        insertionPoint = 0;
     }
 
     @Override
-    public String get(int i) {
-        return null;
+    public String get(int index) {
+        if (index < 0 || index >= size())
+        {
+            String msg = String.format("index %d is out of bounds Size is %d",index,size());
+            throw new IndexOutOfBoundsException(msg);
+        }
+        return backingArray[index];
     }
 
-    @Override
+    @Override // FIXME
     public String set(int i, String s) {
         return null;
     }
 
-    @Override
+    @Override // FIXME
     public void add(int i, String s) {
 
     }
 
-    @Override
+    @Override // FIXME
     public String remove(int i) {
         return null;
     }
