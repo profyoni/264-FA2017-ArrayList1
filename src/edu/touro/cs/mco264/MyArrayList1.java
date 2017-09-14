@@ -34,7 +34,20 @@ public class MyArrayList1 implements List<String> {
 
     @Override
     public Iterator<String> iterator() {
-        return null;
+        return new ArrayList1Iterator();
+    }
+
+    class ArrayList1Iterator implements Iterator<String>
+    {
+        private int index = 0;
+        @Override
+        public boolean hasNext() {
+            return this.index < MyArrayList1.this.size();
+        }
+        @Override
+        public String next() {
+            return backingArray[index++];
+        }
     }
 
     @Override
@@ -79,7 +92,6 @@ public class MyArrayList1 implements List<String> {
     @Override // FIXME
     public boolean addAll(Collection<? extends String> collection) {
         for (String s : collection) {
-
             this.add(s);
         }
         return true;
