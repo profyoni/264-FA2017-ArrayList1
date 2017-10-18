@@ -5,16 +5,16 @@ import java.util.function.UnaryOperator;
 
 // for this hw reuse your code unless you have a better solution
 /**
- * ArrayList of Strings
+ * ArrayList of Ts
  */
-public class MyArrayList1 implements List<String> {
+public class MyArrayList1<T> implements List<T> {
 
-    private String backingArray[];
+    private T[] backingArray;
     private int insertionPoint, // next elt will be inserted here
             capacity = 10; // current length of backing array
 
     public MyArrayList1(){
-        backingArray = new String[capacity];
+        backingArray = (T[]) new Object[capacity];
     }
 
     @Override
@@ -27,17 +27,23 @@ public class MyArrayList1 implements List<String> {
         return size() == 0;
     }
 
-    @Override// FIXME
+    @Override
     public boolean contains(Object o) {
+        for(T s: this)
+        {
+            if (s.equals(o))
+                return true;
+        }
         return false;
     }
 
     @Override
-    public Iterator<String> iterator() {
+    public Iterator<T> iterator() {
         return new ArrayList1Iterator();
     }
 
-    class ArrayList1Iterator implements Iterator<String>
+    // non-static inner class has access to outer class fields and methods
+    class ArrayList1Iterator implements Iterator<T>
     {
         private int index = 0;
         @Override
@@ -45,23 +51,23 @@ public class MyArrayList1 implements List<String> {
             return this.index < MyArrayList1.this.size();
         }
         @Override
-        public String next() {
+        public T next() {
             return backingArray[index++];
         }
     }
 
-    @Override
+    @Override// FIXME
     public Object[] toArray() {
         return new Object[0];
     }
 
-    @Override
+    @Override// FIXME
     public <T> T[] toArray(T[] ts) {
         return null;
     }
 
     @Override
-    public boolean add(String s) {
+    public boolean add(T s) {
 
         if (insertionPoint >= capacity) // must grow array
         {
@@ -73,7 +79,7 @@ public class MyArrayList1 implements List<String> {
     }
 
     private void growArray() {
-        String [] copy = new String[capacity * 2 + 1];
+        T [] copy = (T [])new Object[capacity * 2 + 1];
         System.arraycopy(backingArray, 0, copy, 0, capacity);
         backingArray = copy;
         capacity = capacity * 2 + 1;
@@ -89,16 +95,17 @@ public class MyArrayList1 implements List<String> {
         return false;
     }
 
-    @Override // FIXME
-    public boolean addAll(Collection<? extends String> collection) {
-        for (String s : collection) {
+    @Override // FIXME and optimize
+    public boolean addAll(Collection<? extends T> collection) {
+        // optimize by growing capacity to required size _before_ adding elts from collection
+        for (T s : collection) {
             this.add(s);
         }
         return true;
     }
 
-    @Override // FIXME
-    public boolean addAll(int i, Collection<? extends String> collection) {
+    @Override // FIXME and optimize to have only one shift
+    public boolean addAll(int i, Collection<? extends T> collection) {
         return false;
     }
 
@@ -107,18 +114,18 @@ public class MyArrayList1 implements List<String> {
         return false;
     }
 
-    @Override
+    @Override // FIXME
     public boolean retainAll(Collection<?> collection) {
         return false;
     }
 
     @Override
-    public void replaceAll(UnaryOperator<String> unaryOperator) {
+    public void replaceAll(UnaryOperator<T> unaryOperator) {
 
     }
 
     @Override
-    public void sort(Comparator<? super String> comparator) {
+    public void sort(Comparator<? super T> comparator) {
 
     }
 
@@ -131,7 +138,7 @@ public class MyArrayList1 implements List<String> {
     }
 
     @Override
-    public String get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= size())
         {
             String msg = String.format("index %d is out of bounds Size is %d",index,size());
@@ -141,47 +148,47 @@ public class MyArrayList1 implements List<String> {
     }
 
     @Override // FIXME
-    public String set(int i, String s) {
+    public T set(int i, T s) {
         return null;
     }
 
     @Override // FIXME
-    public void add(int i, String s) {
+    public void add(int i, T s) {
 
     }
 
     @Override // FIXME
-    public String remove(int i) {
+    public T remove(int i) {
         return null;
     }
 
-    @Override
+    @Override // FIXME
     public int indexOf(Object o) {
         return 0;
     }
 
-    @Override
+    @Override// FIXME
     public int lastIndexOf(Object o) {
         return 0;
     }
 
     @Override
-    public ListIterator<String> listIterator() {
+    public ListIterator<T> listIterator() {
         return null;
     }
 
     @Override
-    public ListIterator<String> listIterator(int i) {
+    public ListIterator<T> listIterator(int i) {
         return null;
     }
 
     @Override
-    public List<String> subList(int i, int i1) {
+    public List<T> subList(int i, int i1) {
         return null;
     }
 
     @Override
-    public Spliterator<String> spliterator() {
+    public Spliterator<T> spliterator() {
         return null;
     }
 }

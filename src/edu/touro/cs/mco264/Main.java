@@ -6,6 +6,8 @@ import java.util.Iterator;
 public class Main {
 
     public static void main(String[] args) {
+        String s = "bob";
+
         MyArrayList1 list = new MyArrayList1();
 
 //        for (int i = 0; i < 100; i++)
